@@ -1,23 +1,25 @@
-package com.example.pokemon;
+package com.testapi.pokemon;
 
 public class Pokemon {
-    private String id;
+    private Integer id;
     private String name;
     private String power;
     private String imageUrl;
 
-    public Pokemon(String id, String name, String power, String imageUrl) {
+    public Pokemon() {}
+
+    public Pokemon(Integer id, String name, String power, String imageUrl) {
         this.id = id;
         this.name = name;
         this.power = power;
         this.imageUrl = imageUrl;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
