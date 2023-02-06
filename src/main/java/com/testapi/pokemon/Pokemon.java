@@ -1,6 +1,12 @@
 package com.testapi.pokemon;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "pokemon")
 public class Pokemon {
+    @Id
+    @GeneratedValue()
     private Integer id;
     private String name;
     private String power;
