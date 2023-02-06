@@ -24,7 +24,7 @@ public class PokemonController {
     }
 
     @Post
-    public Pokemon create(@Body Pokemon pokemon){
+    public Pokemon create(@Body Pokemon pokemon) throws Exception {
         return pokemonService.create(pokemon);
     }
 
