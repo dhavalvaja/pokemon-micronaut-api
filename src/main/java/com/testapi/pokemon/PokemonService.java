@@ -1,7 +1,8 @@
 package com.testapi.pokemon;
 
+import com.testapi.exeption.PokemonExistsException;
+import com.testapi.exeption.PokemonNotFoundException;
 import jakarta.inject.Singleton;
-import org.hibernate.ObjectNotFoundException;
 
 import java.util.List;
 import java.util.Optional;

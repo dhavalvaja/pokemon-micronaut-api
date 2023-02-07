@@ -1,11 +1,11 @@
 package com.testapi.pokemon;
 
+import com.testapi.exeption.PokemonExistsException;
+import com.testapi.exeption.PokemonNotFoundException;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
-import io.netty.handler.codec.http.HttpResponseStatus;
 
 import java.util.List;
-import java.util.Objects;
 
 @Controller("/pokemon")
 public class PokemonController {
@@ -28,31 +28,19 @@ public class PokemonController {
 
     @Post
     public HttpResponse<Pokemon> create(@Body Pokemon pokemon) {
-        try {
-            Pokemon savedPokemon = pokemonService.create(pokemon);
-            return HttpResponse.created(savedPokemon);
-        } catch (PokemonExistsException e) {
-            return HttpResponse.badRequest();
-        }
+        Pokemon savedPokemon = pokemonService.create(pokemon);
+        return HttpResponse.created(savedPokemon);
     }
 
     @Put
     public HttpResponse<Pokemon> update(@Body Pokemon pokemon) {
-        try {
-            Pokemon updatedPokemon = pokemonService.update(pokemon);
-            return HttpResponse.created(updatedPokemon);
-        } catch (PokemonNotFoundException e) {
-            return HttpResponse.notFound();
-        }
+        Pokemon updatedPokemon = pokemonService.update(pokemon);
+        return HttpResponse.created(updatedPokemon);
     }
 
     @Delete("/{id}")
-    public HttpResponseStatus deleteById(@PathVariable Integer id) {
-        try {
-            pokemonService.deleteById(id);
-            return HttpResponseStatus.OK;
-        } catch (PokemonNotFoundException e) {
-            return HttpResponseStatus.NOT_FOUND;
-        }
+    public HttpResponse<String> deleteById(@PathVariable Integer id) {
+        pokemonService.deleteById(id);
+        return HttpResponse.ok();
     }
 }

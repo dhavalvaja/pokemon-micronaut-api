@@ -1,6 +1,6 @@
-package com.testapi.pokemon;
+package com.testapi.exeption;
 
-public class PokemonExistsException extends RuntimeException {
+public class PokemonExistsException extends PokemonException {
     public PokemonExistsException() {
         super("Pokemon Already Exists!!!");
     }
