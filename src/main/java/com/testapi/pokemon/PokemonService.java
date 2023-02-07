@@ -1,13 +1,10 @@
 package com.testapi.pokemon;
 
 import jakarta.inject.Singleton;
-import org.hibernate.DuplicateMappingException;
 import org.hibernate.ObjectNotFoundException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Singleton
 public class PokemonService {
@@ -19,38 +16,34 @@ public class PokemonService {
     }
 
     public List<Pokemon> get() {
-        return (List<Pokemon>) pokemonRepository.findAll();
+        return pokemonRepository.findAll();
     }
 
-    public Pokemon create(Pokemon pokemon) throws Exception {
-        List<Pokemon> pokemonList = get();
-        pokemonList.forEach(p -> {
-            if (Objects.equals(p.getName(), pokemon.getName())) {
-                throw new RuntimeException("Pokemon already exists!!!");
-            }
-        });
+    public Pokemon create(Pokemon pokemon) {
+        Optional<Pokemon> byName = pokemonRepository.findByName(pokemon.getName());
+        if (byName.isPresent()) {
+            throw new PokemonExistsException("Name",pokemon.getName());
+        }
         return pokemonRepository.save(pokemon);
     }
 
-    public Pokemon update(Pokemon pokemon) throws ObjectNotFoundException {
-        if (pokemonRepository.existsById(pokemon.getId())) {
-            return pokemonRepository.update(pokemon);
-        } else {
-            throw new ObjectNotFoundException(Pokemon.class, "Pokemon");
+    public Pokemon update(Pokemon pokemon) {
+        if (!pokemonRepository.existsById(pokemon.getId())) {
+            throw new PokemonNotFoundException();
         }
+        return pokemonRepository.update(pokemon);
     }
 
-    public Pokemon getById(Integer id) throws ObjectNotFoundException {
+    public Pokemon getById(Integer id) {
         return pokemonRepository.findById(id).orElseThrow(() -> {
-            throw new RuntimeException("No pokemon found with id: " + id);
+            throw new PokemonNotFoundException();
         });
     }
 
-    public void deleteById(Integer id) throws ObjectNotFoundException {
-        if (pokemonRepository.existsById(id)) {
-            pokemonRepository.deleteById(id);
-        } else {
-            throw new ObjectNotFoundException(Pokemon.class, "Pokemon");
+    public void deleteById(Integer id) {
+        if (!pokemonRepository.existsById(id)) {
+            throw new PokemonNotFoundException();
         }
+        pokemonRepository.deleteById(id);
     }
 }

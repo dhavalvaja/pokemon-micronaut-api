@@ -1,6 +1,7 @@
 package com.testapi.pokemon;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pokemon")
