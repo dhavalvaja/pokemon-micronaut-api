@@ -1,11 +1,10 @@
 package com.testapi.pokemon;
 
-import com.testapi.exeption.PokemonExistsException;
-import com.testapi.exeption.PokemonNotFoundException;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller("/pokemon")
 public class PokemonController {
@@ -17,25 +16,25 @@ public class PokemonController {
     }
 
     @Get()
-    public List<Pokemon> getPokemonList() {
-        return pokemonService.get();
+    public List<PokemonDTO> getPokemonList() {
+        return pokemonService.get().stream().map(PokemonDTO::new).collect(Collectors.toList());
     }
 
     @Get("/{id}")
-    public Pokemon getById(@PathVariable Integer id) {
-        return pokemonService.getById(id);
+    public PokemonDTO getById(@PathVariable Integer id) {
+        return new PokemonDTO(pokemonService.getById(id));
     }
 
     @Post
-    public HttpResponse<Pokemon> create(@Body Pokemon pokemon) {
+    public HttpResponse<PokemonDTO> create(@Body PokemonCreationForm pokemon) {
         Pokemon savedPokemon = pokemonService.create(pokemon);
-        return HttpResponse.created(savedPokemon);
+        return HttpResponse.created(new PokemonDTO(savedPokemon));
     }
 
-    @Put
-    public HttpResponse<Pokemon> update(@Body Pokemon pokemon) {
-        Pokemon updatedPokemon = pokemonService.update(pokemon);
-        return HttpResponse.created(updatedPokemon);
+    @Put("/{id}")
+    public HttpResponse<PokemonDTO> update(@Body PokemonUpdateForm pokemon,@PathVariable Integer id) {
+        Pokemon updatedPokemon = pokemonService.update(id,pokemon);
+        return HttpResponse.created(new PokemonDTO(updatedPokemon));
     }
 
     @Delete("/{id}")

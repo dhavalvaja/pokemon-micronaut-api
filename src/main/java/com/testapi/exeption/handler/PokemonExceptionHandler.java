@@ -1,9 +1,8 @@
 package com.testapi.exeption.handler;
 
 import com.testapi.exeption.PokemonException;
-import com.testapi.exeption.PokemonNotFoundException;
+import com.testapi.exeption.EntityNotFoundException;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.data.annotation.Repository;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Produces;
@@ -17,7 +16,7 @@ public class PokemonExceptionHandler implements
         ExceptionHandler<PokemonException, HttpResponse<PokemonException>> {
     @Override
     public HttpResponse<PokemonException> handle(HttpRequest request, PokemonException exception) {
-        if (exception instanceof PokemonNotFoundException) {
+        if (exception instanceof EntityNotFoundException) {
             return HttpResponse.notFound(exception);
         }
         return HttpResponse.badRequest(exception);

@@ -13,4 +13,6 @@ public interface PokemonRepository extends CrudRepository<Pokemon, Integer> {
     Optional<Pokemon> findByName(String name);
 
     List<Pokemon> findAll();
+
+    Pokemon updateById(Integer id, Pokemon pokemon);
 }
