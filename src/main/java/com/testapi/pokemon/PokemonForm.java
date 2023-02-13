@@ -1,23 +1,25 @@
 package com.testapi.pokemon;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public abstract class PokemonForm {
     private final String name;
-    private final Integer powerId;
+    private final String power;
+    private final Integer imageId;
 
-    public PokemonForm(String name, Integer powerId) {
+    public PokemonForm(String name, String power, Integer imageId) {
         this.name = name;
-        this.powerId = powerId;
+        this.power = power;
+        this.imageId = imageId;
     }
 
     public String getName() {
         return name;
     }
 
-    public Integer getPowerId() {
-        return powerId;
+    public String getPower() {
+        return power;
+    }
+
+    public Integer getImageId() {
+        return imageId;
     }
 }

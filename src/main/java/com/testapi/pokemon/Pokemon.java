@@ -17,7 +17,8 @@ public class Pokemon {
     private Power power;
     private String imageUrl;
 
-    public Pokemon() {}
+    public Pokemon() {
+    }
 
     public Pokemon(Integer id, String name, Power power, String imageUrl) {
         this.id = id;

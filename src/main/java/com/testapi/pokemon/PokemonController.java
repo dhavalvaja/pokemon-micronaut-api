@@ -17,7 +17,11 @@ public class PokemonController {
 
     @Get()
     public List<PokemonDTO> getPokemonList() {
-        return pokemonService.get().stream().map(PokemonDTO::new).collect(Collectors.toList());
+        return pokemonService
+                .get()
+                .stream()
+                .map(PokemonDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Get("/{id}")
@@ -32,8 +36,8 @@ public class PokemonController {
     }
 
     @Put("/{id}")
-    public HttpResponse<PokemonDTO> update(@Body PokemonUpdateForm pokemon,@PathVariable Integer id) {
-        Pokemon updatedPokemon = pokemonService.update(id,pokemon);
+    public HttpResponse<PokemonDTO> update(@Body PokemonCreationForm pokemon, @PathVariable Integer id) {
+        Pokemon updatedPokemon = pokemonService.update(id, pokemon);
         return HttpResponse.created(new PokemonDTO(updatedPokemon));
     }
 
