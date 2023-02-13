@@ -30,6 +30,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-testng:0.4.30'
     testImplementation 'io.rest-assured:rest-assured:5.3.0'
     testImplementation 'io.rest-assured:json-path:5.3.0'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
 }
 
 

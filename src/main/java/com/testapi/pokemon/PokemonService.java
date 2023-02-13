@@ -12,6 +12,8 @@ import java.util.Optional;
 @Singleton
 public class PokemonService {
 
+    private static final String SOURCE_IMAGE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
+    private static final String EXTENSION = ".png";
     private final PokemonRepository pokemonRepository;
     private final PowerService powerService;
 
@@ -33,7 +35,7 @@ public class PokemonService {
         Pokemon pokemon = new Pokemon();
         pokemon.setName(pokemonForm.getName());
         pokemon.setPower(foundPower);
-        pokemon.setImageUrl("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokemonForm.getImageId() + ".png");
+        pokemon.setImageUrl(SOURCE_IMAGE_URL + pokemonForm.getImageId() + EXTENSION);
         return pokemonRepository.save(pokemon);
     }
 
@@ -46,7 +48,7 @@ public class PokemonService {
         p.setId(id);
         p.setName(pokemon.getName());
         p.setPower(foundPower);
-        p.setImageUrl("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + pokemon.getImageId() + ".png");
+        p.setImageUrl(SOURCE_IMAGE_URL + pokemon.getImageId() + EXTENSION);
         return pokemonRepository.update(p);
     }
 
