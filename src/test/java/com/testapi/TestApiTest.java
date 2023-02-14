@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import java.util.List;
 import java.util.Optional;
 
-@MicronautTest
 class TestApiTest {
 
     PokemonService pokemonService;
