@@ -3,6 +3,7 @@ name: Java CI with Gradle
 on: [push]
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -24,3 +25,14 @@ jobs:
         with:
           name: app-jar
           path: build/libs/*-all.jar
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app-jar
+      - name: List Directory
+        run: ls
