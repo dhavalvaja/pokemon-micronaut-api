@@ -36,3 +36,13 @@ jobs:
           name: app-jar
       - name: List Directory
         run: ls
+      - name: Deploy to Elastic Bean
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+          application_name: ${{ env.BEANSTALK_APPLICATION_NAME }}
+          environment_name: ${{ env.APPLICATION_ENVIRONMENT }}
+          version_label: ${{ github.sha }}
+          region: ap-south-1
+          deployment_package: ./*-all.jar
