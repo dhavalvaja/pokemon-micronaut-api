@@ -41,8 +41,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
-          application_name: pokemon-api-micronaut
-          environment_name: Pokemonapimicronaut-env-1
+          application_name: ${{ vars.BEANSTALK_APPLICATION_NAME }}
+          environment_name: ${{ vars.APPLICATION_ENVIRONMENT }}
 #          version_label: ${{ github.sha }}
           version_label: $(git rev-parse --short "$GITHUB_SHA")
           region: ap-south-1
